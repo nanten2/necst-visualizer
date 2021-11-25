@@ -30,7 +30,7 @@ class ScanCheck:
 
     def __init__(self, data_path: PathLike, kisa_path: PathLike = None) -> None:
         self.data_path = Path(data_path)
-        self.kisa_path = Path(kisa_path)
+        # self.kisa_path = Path(kisa_path)
         self.db = necstdb.opendb(self.data_path)
         self.encoder_data = self.load_data(self.ENCODER_TOPIC)
         self.obsmode_data = self.load_data(self.OBSMODE_TOPIC)
@@ -88,10 +88,11 @@ class ScanCheck:
         _az = enc.enc_az / 3600
         _el = enc.enc_el / 3600
 
-        if self.kisa_path:
-            d_az, d_el = apply_kisa_test(azel=(_az, _el), hosei=self.kisa_path)
-        else:
-            d_az, d_el = 0, 0
+        # if self.kisa_path:
+        #     d_az, d_el = apply_kisa_test(azel=(_az, _el), hosei=self.kisa_path)
+        # else:
+        #     d_az, d_el = 0, 0
+        d_az, d_el = 0, 0
 
         az = _az + d_az / 3600
         el = _el + d_el / 3600
@@ -202,20 +203,34 @@ class VisualizeScan:
                 self.drive_data.obs_mode == mode, drop=True
             )
             ax.scatter(drive_dat[x], drive_dat[y], **settings)
-        
+
         def track(zorder):
             mod = mode.decode("utf8")
             drive_dat = self.drive_data.where(
                 self.drive_data.obs_mode == mode, drop=True
             )
-            x_track = [drive_dat[x][i*50] for i in range(round(len(drive_dat[x])/50))]
-            y_track = [drive_dat[y][i*50] for i in range(round(len(drive_dat[y])/50))]
-            dx = [x_track[i+1] - x_track[i] for i in range(len(x_track)-1)]
-            dy = [y_track[i+1] - y_track[i] for i in range(len(y_track)-1)]
+            x_track = [
+                drive_dat[x][i * 50] for i in range(round(len(drive_dat[x]) / 50))
+            ]
+            y_track = [
+                drive_dat[y][i * 50] for i in range(round(len(drive_dat[y]) / 50))
+            ]
+            dx = [x_track[i + 1] - x_track[i] for i in range(len(x_track) - 1)]
+            dy = [y_track[i + 1] - y_track[i] for i in range(len(y_track) - 1)]
             dx.append(np.nan)
             dy.append(np.nan)
             len(dx), len(dy)
-            ax.quiver(x_track,y_track,dx,dy,scale=1,scale_units='xy',angles='xy', alpha=0.5, zorder=zorder)     
+            ax.quiver(
+                x_track,
+                y_track,
+                dx,
+                dy,
+                scale=1,
+                scale_units="xy",
+                angles="xy",
+                alpha=0.5,
+                zorder=zorder,
+            )
 
         for mode in main_obsmodes:
             draw(zorder=-1)
