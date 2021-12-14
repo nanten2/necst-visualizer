@@ -191,57 +191,15 @@ class VisualizeScan:
 
         x, y = self.COORD_MAP[coord]["xy"]
 
-        def draw(zorder):
-            mod = mode.decode("utf8")
-            settings = {
-                "s": 0.1,
-                "zorder": zorder,
-                "label": mod,
-                "c": self.PLOT_COLOR[mode],
-            }
-            drive_dat = self.drive_data.where(
-                self.drive_data.obs_mode == mode, drop=True
-            )
-            ax.scatter(drive_dat[x], drive_dat[y], **settings)
-
-        def track(zorder):
-            mod = mode.decode("utf8")
-            drive_dat = self.drive_data.where(
-                self.drive_data.obs_mode == mode, drop=True
-            )
-            x_track = [
-                drive_dat[x][i * 50] for i in range(round(len(drive_dat[x]) / 50))
-            ]
-            y_track = [
-                drive_dat[y][i * 50] for i in range(round(len(drive_dat[y]) / 50))
-            ]
-            dx = [x_track[i + 1] - x_track[i] for i in range(len(x_track) - 1)]
-            dy = [y_track[i + 1] - y_track[i] for i in range(len(y_track) - 1)]
-            dx.append(np.nan)
-            dy.append(np.nan)
-            len(dx), len(dy)
-            ax.quiver(
-                x_track,
-                y_track,
-                dx,
-                dy,
-                scale=1,
-                scale_units="xy",
-                angles="xy",
-                alpha=0.5,
-                zorder=zorder,
-            )
-
         for mode in main_obsmodes:
-            draw(zorder=-1)
-            track(zorder=-3)
+            self.draw(mode, ax, x, y, zorder=-2)
 
         self.xlim, self.ylim = ax.get_xlim(), ax.get_ylim()
         if coord != "horizontal":
             self.xlim = self.xlim[::-1]
 
         for mode in other_obsmodes:
-            draw(zorder=-2)
+            self.draw(mode, ax, x, y, zorder=-3)
 
         ax.set(
             title=self.COORD_MAP[coord]["title"],
@@ -250,10 +208,90 @@ class VisualizeScan:
             xlabel=self.COORD_MAP[coord]["label"][0],
             ylabel=self.COORD_MAP[coord]["label"][1],
         )
+
         ax.set_rasterization_zorder(0)
         ax.legend()
         ax.grid()
         return
+
+    def track_one_coord(
+        self, coord: str, ax: matplotlib.axes._axes.Axes = None
+    ) -> None:
+        """
+        Parameters
+        ----------
+        coord: str
+            Either of ["horizontal", "equatorial", "galactic"].
+        ax: axes object of matplotlib
+            Axis to which the data is drawn.
+        """
+        if ax is None:
+            fig, ax = plt.subplots(1, 1)
+        coord = coord.lower()
+
+        existing_obsmodes = np.unique(self.drive_data.obs_mode)
+        # get common obsmodes
+        main_obsmodes = set(self.MAIN_OBSMODES).intersection(existing_obsmodes)
+        other_obsmodes = set(self.OTHER_OBSMODES).intersection(existing_obsmodes)
+
+        x, y = self.COORD_MAP[coord]["xy"]
+
+        for mode in main_obsmodes:
+            self.track(mode, ax, x, y, zorder=-2)
+
+        self.xlim, self.ylim = ax.get_xlim(), ax.get_ylim()
+        if coord != "horizontal":
+            self.xlim = self.xlim[::-1]
+
+        ax.set(
+            title=self.COORD_MAP[coord]["title"],
+            xlim=self.xlim,
+            ylim=self.ylim,
+            xlabel=self.COORD_MAP[coord]["label"][0],
+            ylabel=self.COORD_MAP[coord]["label"][1],
+        )
+
+        ax.set_rasterization_zorder(0)
+        ax.grid()
+        return
+
+    def draw(self, mode, ax, x, y, zorder):
+        mod = mode.decode("utf8")
+        settings = {
+            "s": 0.1,
+            "zorder": zorder,
+            "label": mod,
+            "c": self.PLOT_COLOR[mode],
+        }
+        drive_dat = self.drive_data.where(self.drive_data.obs_mode == mode, drop=True)
+        ax.scatter(drive_dat[x], drive_dat[y], **settings)
+
+    def track(self, mode, ax, x, y, zorder, interval: int = 100):
+        drive_dat = self.drive_data.where(self.drive_data.obs_mode == mode, drop=True)
+        x_track = [
+            drive_dat[x][i * interval]
+            for i in range(round(len(drive_dat[x]) / interval))
+        ]
+        y_track = [
+            drive_dat[y][i * interval]
+            for i in range(round(len(drive_dat[y]) / interval))
+        ]
+        dx = [x_track[i + 1] - x_track[i] for i in range(len(x_track) - 1)]
+        dy = [y_track[i + 1] - y_track[i] for i in range(len(y_track) - 1)]
+        dx.append(np.nan)
+        dy.append(np.nan)
+        len(dx), len(dy)
+        ax.quiver(
+            x_track,
+            y_track,
+            dx,
+            dy,
+            scale=1,
+            scale_units="xy",
+            angles="xy",
+            alpha=0.5,
+            zorder=zorder,
+        )
 
     def draw_figure(self, save: Union[PathLike, bool] = False) -> Optional[Path]:
         print("Drawing a figure...")
@@ -262,6 +300,22 @@ class VisualizeScan:
         self.draw_one_coord("horizontal", axes[0])
         self.draw_one_coord("equatorial", axes[1])
         self.draw_one_coord("galactic", axes[2])
+        plt.tight_layout()
+
+        if save is True:
+            save_dir = "./"
+        if save:
+            fig_path = Path(save_dir) / f"{self.target}_observation.pdf"
+            plt.savefig(fig_path, dpi=150)
+            return fig_path.absolute()
+
+    def track_figure(self, save: Union[PathLike, bool] = False) -> Optional[Path]:
+        print("Drawing a figure...")
+        fig, axes = plt.subplots(3, 1, figsize=(14, 10))
+
+        self.track_one_coord("horizontal", axes[0])
+        self.track_one_coord("equatorial", axes[1])
+        self.track_one_coord("galactic", axes[2])
         plt.tight_layout()
 
         if save is True:
