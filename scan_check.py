@@ -224,7 +224,7 @@ class VisualizeScan:
         return (fig, ax)
 
     def track_one_coord(
-        self, coord: str = "galactic", fig=None, ax: matplotlib.axes._axes.Axes = None
+        self, coord: str = "galactic", fig=None, ax: matplotlib.axes._axes.Axes = None, interval: int = 100
     ) -> None:
         """
         Parameters
@@ -246,7 +246,7 @@ class VisualizeScan:
         x, y = self.COORD_MAP[coord]["xy"]
 
         for mode in main_obsmodes:
-            self.track(mode, ax, x, y, zorder=-2)
+            self.track(mode, ax, x, y, zorder=-2, interval=interval)
 
         xlim, ylim = ax.get_xlim(), ax.get_ylim()
         if self.plot_number % 2 == 0:
@@ -331,7 +331,7 @@ class VisualizeScan:
         return (fig, axes)
 
     def track_figure(
-        self, save: Union[PathLike, bool] = False, fig=None, axes=None
+        self, save: Union[PathLike, bool] = False, fig=None, axes=None, interval: int = 100
     ) -> Optional[Path]:
         print("Drawing a figure...")
         if axes is None:
@@ -339,7 +339,7 @@ class VisualizeScan:
 
         coord_list = ["horizontal", "equatorial", "galactic"]
         for i in range(3):
-            self.track_one_coord(coord=coord_list[i], ax=axes[i])
+            self.track_one_coord(coord=coord_list[i], ax=axes[i], interval=interval)
             self.plot_number -= 1
 
         self.plot_number += 1
