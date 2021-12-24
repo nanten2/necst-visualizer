@@ -160,6 +160,8 @@ class VisualizeScan:
         self.drive_data = drive_data
         self.observation = observation
         self.target = observation.split("_")[-1]
+        self.fig, self.ax = plt.subplots(3, 1, figsize=(14, 10))
+        self.plot_number = 0
 
     @classmethod
     def from_pickle(cls, pickle_path: PathLike) -> None:
@@ -171,7 +173,9 @@ class VisualizeScan:
     def draw_data_centric(cls, ax: matplotlib.axes._axes.Axes) -> None:
         return NotImplemented
 
-    def draw_one_coord(self, coord: str, ax: matplotlib.axes._axes.Axes = None) -> None:
+    def draw_one_coord(
+        self, coord: str = "galactic", fig=None, ax: matplotlib.axes._axes.Axes = None
+    ) -> None:
         """
         Parameters
         ----------
@@ -182,6 +186,7 @@ class VisualizeScan:
         """
         if ax is None:
             fig, ax = plt.subplots(1, 1)
+
         coord = coord.lower()
 
         existing_obsmodes = np.unique(self.drive_data.obs_mode)
@@ -194,28 +199,32 @@ class VisualizeScan:
         for mode in main_obsmodes:
             self.draw(mode, ax, x, y, zorder=-2)
 
-        self.xlim, self.ylim = ax.get_xlim(), ax.get_ylim()
-        if coord != "horizontal":
-            self.xlim = self.xlim[::-1]
+        xlim, ylim = ax.get_xlim(), ax.get_ylim()
+        if self.plot_number % 2 == 0:
+            ax.grid()
+            if coord != "horizontal":
+                xlim = xlim[::-1]
 
         for mode in other_obsmodes:
             self.draw(mode, ax, x, y, zorder=-3)
 
         ax.set(
             title=self.COORD_MAP[coord]["title"],
-            xlim=self.xlim,
-            ylim=self.ylim,
+            xlim=xlim,
+            ylim=ylim,
             xlabel=self.COORD_MAP[coord]["label"][0],
             ylabel=self.COORD_MAP[coord]["label"][1],
         )
 
         ax.set_rasterization_zorder(0)
         ax.legend()
-        ax.grid()
-        return
+
+        self.plot_number += 1
+
+        return (fig, ax)
 
     def track_one_coord(
-        self, coord: str, ax: matplotlib.axes._axes.Axes = None
+        self, coord: str = "galactic", fig=None, ax: matplotlib.axes._axes.Axes = None
     ) -> None:
         """
         Parameters
@@ -232,28 +241,32 @@ class VisualizeScan:
         existing_obsmodes = np.unique(self.drive_data.obs_mode)
         # get common obsmodes
         main_obsmodes = set(self.MAIN_OBSMODES).intersection(existing_obsmodes)
-        other_obsmodes = set(self.OTHER_OBSMODES).intersection(existing_obsmodes)
+        # other_obsmodes = set(self.OTHER_OBSMODES).intersection(existing_obsmodes)
 
         x, y = self.COORD_MAP[coord]["xy"]
 
         for mode in main_obsmodes:
             self.track(mode, ax, x, y, zorder=-2)
 
-        self.xlim, self.ylim = ax.get_xlim(), ax.get_ylim()
-        if coord != "horizontal":
-            self.xlim = self.xlim[::-1]
+        xlim, ylim = ax.get_xlim(), ax.get_ylim()
+        if self.plot_number % 2 == 0:
+            ax.grid()
+            if coord != "horizontal":
+                xlim = xlim[::-1]
 
         ax.set(
             title=self.COORD_MAP[coord]["title"],
-            xlim=self.xlim,
-            ylim=self.ylim,
+            xlim=xlim,
+            ylim=ylim,
             xlabel=self.COORD_MAP[coord]["label"][0],
             ylabel=self.COORD_MAP[coord]["label"][1],
         )
 
         ax.set_rasterization_zorder(0)
-        ax.grid()
-        return
+
+        self.plot_number += 1
+
+        return (fig, ax)
 
     def draw(self, mode, ax, x, y, zorder):
         mod = mode.decode("utf8")
@@ -293,13 +306,19 @@ class VisualizeScan:
             zorder=zorder,
         )
 
-    def draw_figure(self, save: Union[PathLike, bool] = False) -> Optional[Path]:
+    def draw_figure(
+        self, save: Union[PathLike, bool] = False, fig=None, axes=None
+    ) -> Optional[Path]:
         print("Drawing a figure...")
-        fig, axes = plt.subplots(3, 1, figsize=(14, 10))
+        if axes is None:
+            fig, axes = self.fig, self.ax
 
-        self.draw_one_coord("horizontal", axes[0])
-        self.draw_one_coord("equatorial", axes[1])
-        self.draw_one_coord("galactic", axes[2])
+        coord_list = ["horizontal", "equatorial", "galactic"]
+        for i in range(3):
+            self.draw_one_coord(coord=coord_list[i], ax=axes[i])
+            self.plot_number -= 1
+
+        self.plot_number += 1
         plt.tight_layout()
 
         if save is True:
@@ -309,13 +328,21 @@ class VisualizeScan:
             plt.savefig(fig_path, dpi=150)
             return fig_path.absolute()
 
-    def track_figure(self, save: Union[PathLike, bool] = False) -> Optional[Path]:
-        print("Drawing a figure...")
-        fig, axes = plt.subplots(3, 1, figsize=(14, 10))
+        return (fig, axes)
 
-        self.track_one_coord("horizontal", axes[0])
-        self.track_one_coord("equatorial", axes[1])
-        self.track_one_coord("galactic", axes[2])
+    def track_figure(
+        self, save: Union[PathLike, bool] = False, fig=None, axes=None
+    ) -> Optional[Path]:
+        print("Drawing a figure...")
+        if axes is None:
+            fig, axes = self.fig, self.ax
+
+        coord_list = ["horizontal", "equatorial", "galactic"]
+        for i in range(3):
+            self.track_one_coord(coord=coord_list[i], ax=axes[i])
+            self.plot_number -= 1
+
+        self.plot_number += 1
         plt.tight_layout()
 
         if save is True:
@@ -324,3 +351,5 @@ class VisualizeScan:
             fig_path = Path(save_dir) / f"{self.target}_observation.pdf"
             plt.savefig(fig_path, dpi=150)
             return fig_path.absolute()
+
+        return (fig, axes)
