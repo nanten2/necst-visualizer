@@ -161,7 +161,6 @@ class VisualizeScan:
         self.observation = observation
         self.target = observation.split("_")[-1]
         self.fig, self.ax = plt.subplots(3, 1, figsize=(14, 10))
-        self.plot_number = 0
 
     @classmethod
     def from_pickle(cls, pickle_path: PathLike) -> None:
@@ -200,10 +199,6 @@ class VisualizeScan:
             self.draw(mode, ax, x, y, zorder=-2)
 
         xlim, ylim = ax.get_xlim(), ax.get_ylim()
-        if self.plot_number % 2 == 0:
-            ax.grid()
-            if coord != "horizontal":
-                xlim = xlim[::-1]
 
         for mode in other_obsmodes:
             self.draw(mode, ax, x, y, zorder=-3)
@@ -216,10 +211,13 @@ class VisualizeScan:
             ylabel=self.COORD_MAP[coord]["label"][1],
         )
 
+        if coord != "horizontal":
+            _ = [ax.invert_xaxis() for _ in range(1) if ax.xaxis_inverted()]
+            ax.invert_xaxis()
+
         ax.set_rasterization_zorder(0)
         ax.legend()
-
-        self.plot_number += 1
+        ax.grid(True)
 
         return (fig, ax)
 
@@ -249,10 +247,6 @@ class VisualizeScan:
             self.track(mode, ax, x, y, zorder=-2, interval=interval)
 
         xlim, ylim = ax.get_xlim(), ax.get_ylim()
-        if self.plot_number % 2 == 0:
-            ax.grid()
-            if coord != "horizontal":
-                xlim = xlim[::-1]
 
         ax.set(
             title=self.COORD_MAP[coord]["title"],
@@ -262,9 +256,12 @@ class VisualizeScan:
             ylabel=self.COORD_MAP[coord]["label"][1],
         )
 
-        ax.set_rasterization_zorder(0)
+        if coord != "horizontal":
+            _ = [ax.invert_xaxis() for _ in range(1) if ax.xaxis_inverted()]
+            ax.invert_xaxis()
 
-        self.plot_number += 1
+        ax.set_rasterization_zorder(0)
+        ax.grid(True)
 
         return (fig, ax)
 
@@ -316,9 +313,7 @@ class VisualizeScan:
         coord_list = ["horizontal", "equatorial", "galactic"]
         for i in range(3):
             self.draw_one_coord(coord=coord_list[i], ax=axes[i])
-            self.plot_number -= 1
 
-        self.plot_number += 1
         plt.tight_layout()
 
         if save is True:
@@ -340,9 +335,7 @@ class VisualizeScan:
         coord_list = ["horizontal", "equatorial", "galactic"]
         for i in range(3):
             self.track_one_coord(coord=coord_list[i], ax=axes[i], interval=interval)
-            self.plot_number -= 1
 
-        self.plot_number += 1
         plt.tight_layout()
 
         if save is True:
