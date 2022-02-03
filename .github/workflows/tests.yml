@@ -28,5 +28,3 @@ jobs:
         run: black --check tests necst_visualizer
       - name: Test code's execution (pytest)
         run : pytest -v tests
-      - name: Test docs' building (Sphinx)
-        run: docs/build
