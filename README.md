@@ -1,8 +1,8 @@
-# necst_visualizer
+# necst-visualizer
 
-[![PyPI](https://img.shields.io/pypi/v/necst_visualizer.svg?label=PyPI&style=flat-square)](https://pypi.org/pypi/necst_visualizer/)
-[![Python](https://img.shields.io/pypi/pyversions/necst_visualizer.svg?label=Python&color=yellow&style=flat-square)](https://pypi.org/pypi/necst_visualizer/)
-[![Test](https://img.shields.io/github/workflow/status/nanten2/necst_visualizer/Test?logo=github&label=Test&style=flat-square)](https://github.com/nanten2/necst_visualizer/actions)
+[![PyPI](https://img.shields.io/pypi/v/necst-visualizer.svg?label=PyPI&style=flat-square)](https://pypi.org/pypi/necst-visualizer/)
+[![Python](https://img.shields.io/pypi/pyversions/necst-visualizer.svg?label=Python&color=yellow&style=flat-square)](https://pypi.org/pypi/necst-visualizer/)
+[![Test](https://img.shields.io/github/workflow/status/nanten2/necst-visualizer/Test?logo=github&label=Test&style=flat-square)](https://github.com/nanten2/necst-visualizer/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?label=License&style=flat-square)](LICENSE)
 
 Simulate necst system
@@ -13,5 +13,5 @@ This package provides:
 
 ## Installation
 ```
-pip install necst_visualizer
+pip install necst-visualizer
 ```
