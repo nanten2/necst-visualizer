@@ -12,8 +12,12 @@ xarray = "^0.20.0"
 necstdb = "^0.2.5"
 jupyter = "^1.0.0"
 n-const = "^1.0.0"
+ipython = "^7.30.1"
 
 [tool.poetry.dev-dependencies]
+black = "^22.1.0"
+pytest = "^6.2.5"
+ipykernel = "^6.8.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

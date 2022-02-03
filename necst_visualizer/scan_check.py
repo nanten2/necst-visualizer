@@ -222,7 +222,11 @@ class VisualizeScan:
         return (fig, ax)
 
     def track_one_coord(
-        self, coord: str = "galactic", fig=None, ax: matplotlib.axes._axes.Axes = None, interval: int = 100
+        self,
+        coord: str = "galactic",
+        fig=None,
+        ax: matplotlib.axes._axes.Axes = None,
+        interval: int = 100,
     ) -> None:
         """
         Parameters
@@ -326,7 +330,11 @@ class VisualizeScan:
         return (fig, axes)
 
     def track_figure(
-        self, save: Union[PathLike, bool] = False, fig=None, axes=None, interval: int = 100
+        self,
+        save: Union[PathLike, bool] = False,
+        fig=None,
+        axes=None,
+        interval: int = 100,
     ) -> Optional[Path]:
         print("Drawing a figure...")
         if axes is None:
