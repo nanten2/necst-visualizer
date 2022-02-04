@@ -8,4 +8,4 @@ try:
 except:
     __version__ = None
 
-from .scan_check import ScanCheck
+from .scan_check import ScanCheck, VisualizeScan

@@ -14,6 +14,7 @@ from typing import Union, Optional, Tuple
 
 import necstdb
 import n_const.constants as n2const
+from nasco_analysis.kisa_rev import apply_kisa_test
 
 PathLike = Union[str, Path]
 timestamp2datetime = np.vectorize(datetime.utcfromtimestamp)
@@ -30,11 +31,14 @@ class ScanCheck:
 
     def __init__(self, data_path: PathLike, kisa_path: PathLike = None) -> None:
         self.data_path = Path(data_path)
-        # self.kisa_path = Path(kisa_path)
         self.db = necstdb.opendb(self.data_path)
         self.encoder_data = self.load_data(self.ENCODER_TOPIC)
         self.obsmode_data = self.load_data(self.OBSMODE_TOPIC)
         self.target = str(self.data_path).split("_")[-1]
+        if kisa_path is not None:
+            self.kisa_path = Path(kisa_path)
+        else:
+            self.kisa_path = None
 
     def load_data(self, topic_name: str) -> dict:
         data = self.db.open_table(topic_name).read(astype="array")
@@ -88,11 +92,10 @@ class ScanCheck:
         _az = enc.enc_az / 3600
         _el = enc.enc_el / 3600
 
-        # if self.kisa_path:
-        #     d_az, d_el = apply_kisa_test(azel=(_az, _el), hosei=self.kisa_path)
-        # else:
-        #     d_az, d_el = 0, 0
-        d_az, d_el = 0, 0
+        if self.kisa_path is not None:
+            d_az, d_el = apply_kisa_test(azel=(_az, _el), hosei=self.kisa_path)
+        else:
+            d_az, d_el = 0, 0
 
         az = _az + d_az / 3600
         el = _el + d_el / 3600
