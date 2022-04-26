@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "necst-visual-validator"
+name = "necst-visualizer"
 version = "0.1.0"
 description = ""
-authors = ["Fumika Demachi"]
+license = "MIT"
+readme = "README.md"
+authors = ["FumikaDemachi <f.demachi@a.phys.nagoya-u.ac.jp>"]
+repository = "https://github.com/nanten2/necst-visualizer"
 
 [tool.poetry.dependencies]
 python = ">=3.7,<3.10"
