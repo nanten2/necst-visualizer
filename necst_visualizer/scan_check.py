@@ -14,7 +14,7 @@ from typing import Union, Optional, Tuple
 
 import necstdb
 import n_const.constants as n2const
-from nasco_analysis.kisa_rev import apply_kisa_test
+from neclib.parameters import pointing_error
 
 PathLike = Union[str, Path]
 timestamp2datetime = np.vectorize(datetime.utcfromtimestamp)
@@ -89,16 +89,12 @@ class ScanCheck:
         )
         # empirical, about 3000 data are processed per second
 
-        _az = enc.enc_az / 3600
-        _el = enc.enc_el / 3600
+        az = enc.enc_az / 3600
+        el = enc.enc_el / 3600
 
         if self.kisa_path is not None:
-            d_az, d_el = apply_kisa_test(azel=(_az, _el), hosei=self.kisa_path)
-        else:
-            d_az, d_el = 0, 0
-
-        az = _az + d_az / 3600
-        el = _el + d_el / 3600
+            params = pointing_error.PointingError.from_file(self.kisa_path)
+            az, el = params.refracted2encoder(az, el, unit="deg")
 
         coord_horizontal = SkyCoord(
             az=az.data,
