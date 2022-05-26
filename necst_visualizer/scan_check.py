@@ -24,6 +24,20 @@ class ScanCheck:
     """
     Tool to check whether the data is taken with "normally" controlled
     system.
+
+    Parameters
+    ----------
+    data_path: PathLike
+        Path to the database directory.
+    kisa_path: PathLike
+        Path to the pointing error file.
+
+    Examples
+    --------
+    >>> necvis = necst_visualizer.Scan_check.ScanCheck("path/to/database")
+    >>> necvis.create_data_array()
+    (xarray.Dataset)
+
     """
 
     ENCODER_TOPIC = "status_encoder"
@@ -124,6 +138,30 @@ class ScanCheck:
 
 
 class VisualizeScan:
+    """
+    Visualize scanning path.
+
+    Parameters
+    ----------
+    drive_data: xr.Dataset
+        it is created by create_data_array() function of ScanCheck class.
+
+    Examples
+    --------
+    >>> visualize = necst_visualizer.Scan_check.VisualizeScan(drive_data)
+    >>> visualize.draw_figure()
+    (Plot observational data on three coordinate systems (horizontal,equatorial and galactic))
+    >>> visualize.draw_one_coord()
+    (Plot observational data on galactic coordinate system)
+    >>> visualize.track_figure()
+    (Show the direction of observation on three coordinate systems)
+    >>> visualize.track_one_coord()
+    (Show the direction of observation on galactic coordinate system)
+    >>> fig,axes = visualize.draw_figure()
+    >>> visualize.track_figure(fig=fig,axes=axes)
+    (Plot observational data with the direction of observation on three coordinate systems)
+
+    """
 
     MAIN_OBSMODES = [b"ON        ", b"OFF       ", b"SKY       "]
     OTHER_OBSMODES = [b"          ", b"Non       ", b"HOT       "]
@@ -175,6 +213,8 @@ class VisualizeScan:
         self, coord: str = "galactic", fig=None, ax: matplotlib.axes._axes.Axes = None
     ) -> None:
         """
+        Plot observational data.
+
         Parameters
         ----------
         coord: str
@@ -228,12 +268,16 @@ class VisualizeScan:
         interval: int = 100,
     ) -> None:
         """
+        Show the direction of observation.
+
         Parameters
         ----------
         coord: str
             Either of ["horizontal", "equatorial", "galactic"].
         ax: axes object of matplotlib
             Axis to which the data is drawn.
+        interval: int
+            Interval between starting and end point of arrow.
         """
         if ax is None:
             fig, ax = plt.subplots(1, 1)
@@ -309,6 +353,16 @@ class VisualizeScan:
     def draw_figure(
         self, save: Union[PathLike, bool] = False, fig=None, axes=None
     ) -> Optional[Path]:
+        """
+        Plot observational data on three coordinate systems (horizontal,equatorial and galactic).
+
+        Parameters
+        ----------
+        save: Union[PathLike, bool]
+            Path to the directory you want to save the figure.
+        fig: figure object ob matplotlib
+        axes: axes object of matplotlib
+        """
         print("Drawing a figure...")
         if axes is None:
             fig, axes = self.fig, self.ax
@@ -335,6 +389,18 @@ class VisualizeScan:
         axes=None,
         interval: int = 100,
     ) -> Optional[Path]:
+        """
+        Show the direction of observation on three coordinate systems (horizontal,equatorial and galactic).
+
+        Parameters
+        ----------
+        save: Union[PathLike, bool]
+            Path to the directory you want to save the figure.
+        fig: figure object ob matplotlib
+        axes: axes object of matplotlib
+        interval: int
+            Interval between starting and end point of arrow.
+        """
         print("Drawing a figure...")
         if axes is None:
             fig, axes = self.fig, self.ax
