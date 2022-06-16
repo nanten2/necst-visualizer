@@ -360,7 +360,7 @@ class VisualizeScan:
         ----------
         save: Union[PathLike, bool]
             Path to the directory you want to save the figure.
-        fig: figure object ob matplotlib
+        fig: figure object of matplotlib
         axes: axes object of matplotlib
         """
         print("Drawing a figure...")
@@ -396,7 +396,7 @@ class VisualizeScan:
         ----------
         save: Union[PathLike, bool]
             Path to the directory you want to save the figure.
-        fig: figure object ob matplotlib
+        fig: figure object of matplotlib
         axes: axes object of matplotlib
         interval: int
             Interval between starting and end point of arrow.

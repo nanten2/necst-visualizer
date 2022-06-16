@@ -18,4 +18,4 @@ pip install necst-visualizer
 
 ## Usage
 
-See the [API reference](https://nanten2.github.io/necst-visualizer/_source/necst-visualizer.html).
+See the [API reference](https://nanten2.github.io/necst-visualizer/_source/necst_visualizer.html).
