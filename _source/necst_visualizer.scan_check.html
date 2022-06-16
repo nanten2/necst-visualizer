@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>necst_visualizer.scan_check &#8212; necst-visualizer 0.1.1 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/20414019?s=400&amp;u=0e47c7d5efc6cf27086c8cfcdb6fd5c757926043&amp;v=4"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="necst_visualizer" href="necst_visualizer.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">necst-visualizer</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="necst_visualizer.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nanten2/necst-visualizer" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/pypi/necst-visualizer/" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-cubes"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><!DOCTYPE html>
+<!-- This will display the version of the docs -->
+<p style="text-align: center; font-family: Verdana, sans-serif;">v0.1.1</p><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   necst_visualizer.scan_check
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="module-necst_visualizer.scan_check">
+<span id="necst-visualizer-scan-check"></span><h1>necst_visualizer.scan_check<a class="headerlink" href="#module-necst_visualizer.scan_check" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.ScanCheck">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ScanCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kisa_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#ScanCheck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.ScanCheck" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Tool to check whether the data is taken with “normally” controlled
+system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_path</strong> (<em>PathLike</em>) – Path to the database directory.</p></li>
+<li><p><strong>kisa_path</strong> (<em>PathLike</em>) – Path to the pointing error file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">necvis</span> <span class="o">=</span> <span class="n">necst_visualizer</span><span class="o">.</span><span class="n">Scan_check</span><span class="o">.</span><span class="n">ScanCheck</span><span class="p">(</span><span class="s2">&quot;path/to/database&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">necvis</span><span class="o">.</span><span class="n">create_data_array</span><span class="p">()</span>
+<span class="go">(xarray.Dataset)</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.ScanCheck.ENCODER_TOPIC">
+<span class="sig-name descname"><span class="pre">ENCODER_TOPIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'status_encoder'</span></em><a class="headerlink" href="#necst_visualizer.scan_check.ScanCheck.ENCODER_TOPIC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.ScanCheck.OBSMODE_TOPIC">
+<span class="sig-name descname"><span class="pre">OBSMODE_TOPIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'obsmode'</span></em><a class="headerlink" href="#necst_visualizer.scan_check.ScanCheck.OBSMODE_TOPIC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.ScanCheck.load_data">
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#ScanCheck.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.ScanCheck.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>topic_name</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.ScanCheck.create_data_array">
+<span class="sig-name descname"><span class="pre">create_data_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dump</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#ScanCheck.create_data_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.ScanCheck.create_data_array" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dump</strong> (<em>bool</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Dataset</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.ScanCheck.trans_coords">
+<span class="sig-name descname"><span class="pre">trans_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#ScanCheck.trans_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.ScanCheck.trans_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform azel coordinate to equatorial and galactic coordinates.
+.. rubric:: Notes</p>
+<p>This function will take 100s to process data of length 300k.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>enc</strong> (<em>Dataset</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VisualizeScan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">drive_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NotSpecified'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Visualize scanning path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>drive_data</strong> (<em>xr.Dataset</em>) – it is created by create_data_array() function of ScanCheck class.</p></li>
+<li><p><strong>observation</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">visualize</span> <span class="o">=</span> <span class="n">necst_visualizer</span><span class="o">.</span><span class="n">Scan_check</span><span class="o">.</span><span class="n">VisualizeScan</span><span class="p">(</span><span class="n">drive_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visualize</span><span class="o">.</span><span class="n">draw_figure</span><span class="p">()</span>
+<span class="go">(Plot observational data on three coordinate systems (horizontal,equatorial and galactic))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visualize</span><span class="o">.</span><span class="n">draw_one_coord</span><span class="p">()</span>
+<span class="go">(Plot observational data on galactic coordinate system)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visualize</span><span class="o">.</span><span class="n">track_figure</span><span class="p">()</span>
+<span class="go">(Show the direction of observation on three coordinate systems)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visualize</span><span class="o">.</span><span class="n">track_one_coord</span><span class="p">()</span>
+<span class="go">(Show the direction of observation on galactic coordinate system)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span><span class="n">axes</span> <span class="o">=</span> <span class="n">visualize</span><span class="o">.</span><span class="n">draw_figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">visualize</span><span class="o">.</span><span class="n">track_figure</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span><span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">)</span>
+<span class="go">(Plot observational data with the direction of observation on three coordinate systems)</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.MAIN_OBSMODES">
+<span class="sig-name descname"><span class="pre">MAIN_OBSMODES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[b'ON</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">',</span> <span class="pre">b'OFF</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">',</span> <span class="pre">b'SKY</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">']</span></em><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.MAIN_OBSMODES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.OTHER_OBSMODES">
+<span class="sig-name descname"><span class="pre">OTHER_OBSMODES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[b'</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">',</span> <span class="pre">b'Non</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">',</span> <span class="pre">b'HOT</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">']</span></em><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.OTHER_OBSMODES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.PLOT_COLOR">
+<span class="sig-name descname"><span class="pre">PLOT_COLOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{b'</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">':</span> <span class="pre">'#777',</span> <span class="pre">b'HOT</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">':</span> <span class="pre">'#F00',</span> <span class="pre">b'Non</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">':</span> <span class="pre">'#000',</span> <span class="pre">b'OFF</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">':</span> <span class="pre">'#0DF',</span> <span class="pre">b'ON</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">':</span> <span class="pre">'#0F0',</span> <span class="pre">b'SKY</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">':</span> <span class="pre">'#0DF'}</span></em><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.PLOT_COLOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.COORD_MAP">
+<span class="sig-name descname"><span class="pre">COORD_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'equatorial':</span> <span class="pre">{'label':</span> <span class="pre">['R.A.</span> <span class="pre">[deg]',</span> <span class="pre">'Dec.</span> <span class="pre">[deg]'],</span> <span class="pre">'title':</span> <span class="pre">'Equatorial</span> <span class="pre">(J2000)',</span> <span class="pre">'xy':</span> <span class="pre">['ra',</span> <span class="pre">'dec']},</span> <span class="pre">'galactic':</span> <span class="pre">{'label':</span> <span class="pre">['$l$</span> <span class="pre">[deg]',</span> <span class="pre">'$b$</span> <span class="pre">[deg]'],</span> <span class="pre">'title':</span> <span class="pre">'Galactic',</span> <span class="pre">'xy':</span> <span class="pre">['l',</span> <span class="pre">'b']},</span> <span class="pre">'horizontal':</span> <span class="pre">{'label':</span> <span class="pre">['Az.</span> <span class="pre">[deg]',</span> <span class="pre">'El.</span> <span class="pre">[deg]'],</span> <span class="pre">'title':</span> <span class="pre">'Horizontal',</span> <span class="pre">'xy':</span> <span class="pre">['az',</span> <span class="pre">'el']}}</span></em><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.COORD_MAP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.from_pickle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pickle_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan.from_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.from_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pickle_path</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.draw_data_centric">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_data_centric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan.draw_data_centric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.draw_data_centric" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ax</strong> (<em>Axes</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.draw_one_coord">
+<span class="sig-name descname"><span class="pre">draw_one_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'galactic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan.draw_one_coord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.draw_one_coord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot observational data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coord</strong> (<em>str</em>) – Either of [“horizontal”, “equatorial”, “galactic”].</p></li>
+<li><p><strong>ax</strong> (<em>axes object of matplotlib</em>) – Axis to which the data is drawn.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.track_one_coord">
+<span class="sig-name descname"><span class="pre">track_one_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'galactic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan.track_one_coord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.track_one_coord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the direction of observation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coord</strong> (<em>str</em>) – Either of [“horizontal”, “equatorial”, “galactic”].</p></li>
+<li><p><strong>ax</strong> (<em>axes object of matplotlib</em>) – Axis to which the data is drawn.</p></li>
+<li><p><strong>interval</strong> (<em>int</em>) – Interval between starting and end point of arrow.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.track">
+<span class="sig-name descname"><span class="pre">track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zorder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan.track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.track" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>interval</strong> (<em>int</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.draw_figure">
+<span class="sig-name descname"><span class="pre">draw_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan.draw_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.draw_figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot observational data on three coordinate systems (horizontal,equatorial and galactic).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save</strong> (<em>Union</em><em>[</em><em>PathLike</em><em>, </em><em>bool</em><em>]</em>) – Path to the directory you want to save the figure.</p></li>
+<li><p><strong>fig</strong> (<em>figure object of matplotlib</em>) – </p></li>
+<li><p><strong>axes</strong> (<em>axes object of matplotlib</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Optional</em>[<em>Path</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="necst_visualizer.scan_check.VisualizeScan.track_figure">
+<span class="sig-name descname"><span class="pre">track_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/necst_visualizer/scan_check.html#VisualizeScan.track_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#necst_visualizer.scan_check.VisualizeScan.track_figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the direction of observation on three coordinate systems (horizontal,equatorial and galactic).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save</strong> (<em>Union</em><em>[</em><em>PathLike</em><em>, </em><em>bool</em><em>]</em>) – Path to the directory you want to save the figure.</p></li>
+<li><p><strong>fig</strong> (<em>figure object of matplotlib</em>) – </p></li>
+<li><p><strong>axes</strong> (<em>axes object of matplotlib</em>) – </p></li>
+<li><p><strong>interval</strong> (<em>int</em>) – Interval between starting and end point of arrow.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Optional</em>[<em>Path</em>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="necst_visualizer.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">necst_visualizer</p>
+        </div>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, NANTEN2 Software Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
